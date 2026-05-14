@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { brand, projects } from "@/data/site";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { useProjects } from "@/lib/db";
 
 export const Route = createFileRoute("/our-projects")({
   head: () => ({
@@ -20,15 +21,28 @@ export const Route = createFileRoute("/our-projects")({
 function ProjectsPage() {
   const [type, setType] = useState("All Types");
   const [style, setStyle] = useState("All Styles");
+  const { data: dbProjects } = useProjects();
+
+  const list = useMemo(() => {
+    if (dbProjects && dbProjects.length > 0) {
+      return dbProjects.map((p) => ({
+        slug: p.slug, title: p.title, image: p.cover_image_url ?? "",
+        type: p.type ?? "", location: p.location ?? "", year: p.year ?? 0,
+        area: p.area ?? "", style: p.style ?? "", budget: p.budget ?? "",
+        tagline: p.tagline ?? "",
+      }));
+    }
+    return projects.list;
+  }, [dbProjects]);
 
   const filtered = useMemo(
     () =>
-      projects.list.filter(
+      list.filter(
         (p) =>
           (type === "All Types" || p.type === type) &&
           (style === "All Styles" || p.style === style)
       ),
-    [type, style]
+    [list, type, style]
   );
 
   return (
