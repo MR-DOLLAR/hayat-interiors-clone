@@ -9,12 +9,12 @@ export const Route = createFileRoute("/admin")({
   component: AdminLayout,
 });
 
-const tabs = [
+const tabs: Array<{ to: string; label: string; exact?: boolean }> = [
   { to: "/admin", label: "Dashboard", exact: true },
   { to: "/admin/services", label: "Services" },
   { to: "/admin/projects", label: "Projects" },
   { to: "/admin/settings", label: "Brand & Contact" },
-] as const;
+];
 
 function AdminLayout() {
   const { user, isAdmin, loading, signOut } = useAuth();

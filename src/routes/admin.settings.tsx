@@ -26,7 +26,7 @@ function AdminSettings() {
 
   const save = async (key: string, value: unknown) => {
     setSaving(true); setMsg("");
-    const { error } = await supabase.from("site_settings").upsert({ key, value }, { onConflict: "key" });
+    const { error } = await supabase.from("site_settings").upsert({ key, value } as never, { onConflict: "key" });
     setSaving(false);
     setMsg(error ? `Error: ${error.message}` : `Saved ${key}.`);
   };

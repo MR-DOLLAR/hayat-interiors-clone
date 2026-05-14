@@ -11,9 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as OurProjectsRouteImport } from './routes/our-projects'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutHayatInteriorsRouteImport } from './routes/about-hayat-interiors'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as OurProjectsSlugRouteImport } from './routes/our-projects.$slug'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminServicesRouteImport } from './routes/admin.services'
+import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
+import { Route as AdminProjectsIdRouteImport } from './routes/admin.projects.$id'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -25,9 +33,19 @@ const OurProjectsRoute = OurProjectsRouteImport.update({
   path: '/our-projects',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutHayatInteriorsRoute = AboutHayatInteriorsRouteImport.update({
@@ -40,58 +58,136 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const OurProjectsSlugRoute = OurProjectsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => OurProjectsRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminServicesRoute = AdminServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProjectsRoute = AdminProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProjectsIdRoute = AdminProjectsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminProjectsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about-hayat-interiors': typeof AboutHayatInteriorsRoute
+  '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
-  '/our-projects': typeof OurProjectsRoute
+  '/login': typeof LoginRoute
+  '/our-projects': typeof OurProjectsRouteWithChildren
   '/services': typeof ServicesRoute
+  '/admin/projects': typeof AdminProjectsRouteWithChildren
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/our-projects/$slug': typeof OurProjectsSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/projects/$id': typeof AdminProjectsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about-hayat-interiors': typeof AboutHayatInteriorsRoute
   '/contact': typeof ContactRoute
-  '/our-projects': typeof OurProjectsRoute
+  '/login': typeof LoginRoute
+  '/our-projects': typeof OurProjectsRouteWithChildren
   '/services': typeof ServicesRoute
+  '/admin/projects': typeof AdminProjectsRouteWithChildren
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/our-projects/$slug': typeof OurProjectsSlugRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/projects/$id': typeof AdminProjectsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about-hayat-interiors': typeof AboutHayatInteriorsRoute
+  '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
-  '/our-projects': typeof OurProjectsRoute
+  '/login': typeof LoginRoute
+  '/our-projects': typeof OurProjectsRouteWithChildren
   '/services': typeof ServicesRoute
+  '/admin/projects': typeof AdminProjectsRouteWithChildren
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/our-projects/$slug': typeof OurProjectsSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/projects/$id': typeof AdminProjectsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about-hayat-interiors'
+    | '/admin'
     | '/contact'
+    | '/login'
     | '/our-projects'
     | '/services'
+    | '/admin/projects'
+    | '/admin/services'
+    | '/admin/settings'
+    | '/our-projects/$slug'
+    | '/admin/'
+    | '/admin/projects/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about-hayat-interiors'
     | '/contact'
+    | '/login'
     | '/our-projects'
     | '/services'
+    | '/admin/projects'
+    | '/admin/services'
+    | '/admin/settings'
+    | '/our-projects/$slug'
+    | '/admin'
+    | '/admin/projects/$id'
   id:
     | '__root__'
     | '/'
     | '/about-hayat-interiors'
+    | '/admin'
     | '/contact'
+    | '/login'
     | '/our-projects'
     | '/services'
+    | '/admin/projects'
+    | '/admin/services'
+    | '/admin/settings'
+    | '/our-projects/$slug'
+    | '/admin/'
+    | '/admin/projects/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutHayatInteriorsRoute: typeof AboutHayatInteriorsRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ContactRoute: typeof ContactRoute
-  OurProjectsRoute: typeof OurProjectsRoute
+  LoginRoute: typeof LoginRoute
+  OurProjectsRoute: typeof OurProjectsRouteWithChildren
   ServicesRoute: typeof ServicesRoute
 }
 
@@ -111,11 +207,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OurProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about-hayat-interiors': {
@@ -132,14 +242,98 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/our-projects/$slug': {
+      id: '/our-projects/$slug'
+      path: '/$slug'
+      fullPath: '/our-projects/$slug'
+      preLoaderRoute: typeof OurProjectsSlugRouteImport
+      parentRoute: typeof OurProjectsRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/services': {
+      id: '/admin/services'
+      path: '/services'
+      fullPath: '/admin/services'
+      preLoaderRoute: typeof AdminServicesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/projects': {
+      id: '/admin/projects'
+      path: '/projects'
+      fullPath: '/admin/projects'
+      preLoaderRoute: typeof AdminProjectsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/projects/$id': {
+      id: '/admin/projects/$id'
+      path: '/$id'
+      fullPath: '/admin/projects/$id'
+      preLoaderRoute: typeof AdminProjectsIdRouteImport
+      parentRoute: typeof AdminProjectsRoute
+    }
   }
 }
+
+interface AdminProjectsRouteChildren {
+  AdminProjectsIdRoute: typeof AdminProjectsIdRoute
+}
+
+const AdminProjectsRouteChildren: AdminProjectsRouteChildren = {
+  AdminProjectsIdRoute: AdminProjectsIdRoute,
+}
+
+const AdminProjectsRouteWithChildren = AdminProjectsRoute._addFileChildren(
+  AdminProjectsRouteChildren,
+)
+
+interface AdminRouteChildren {
+  AdminProjectsRoute: typeof AdminProjectsRouteWithChildren
+  AdminServicesRoute: typeof AdminServicesRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminProjectsRoute: AdminProjectsRouteWithChildren,
+  AdminServicesRoute: AdminServicesRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface OurProjectsRouteChildren {
+  OurProjectsSlugRoute: typeof OurProjectsSlugRoute
+}
+
+const OurProjectsRouteChildren: OurProjectsRouteChildren = {
+  OurProjectsSlugRoute: OurProjectsSlugRoute,
+}
+
+const OurProjectsRouteWithChildren = OurProjectsRoute._addFileChildren(
+  OurProjectsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutHayatInteriorsRoute: AboutHayatInteriorsRoute,
+  AdminRoute: AdminRouteWithChildren,
   ContactRoute: ContactRoute,
-  OurProjectsRoute: OurProjectsRoute,
+  LoginRoute: LoginRoute,
+  OurProjectsRoute: OurProjectsRouteWithChildren,
   ServicesRoute: ServicesRoute,
 }
 export const routeTree = rootRouteImport

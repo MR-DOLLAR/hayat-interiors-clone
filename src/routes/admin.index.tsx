@@ -48,7 +48,7 @@ function Dashboard() {
         }
       }
       // Settings
-      const settingsRows = [
+      const settingsRows: Array<{ key: string; value: unknown }> = [
         { key: "brand", value: seedBrand },
         { key: "contact", value: seedContact },
         { key: "about", value: seedAbout },
@@ -56,7 +56,7 @@ function Dashboard() {
         { key: "footer", value: seedFooter },
       ];
       for (const r of settingsRows) {
-        await supabase.from("site_settings").upsert(r, { onConflict: "key" });
+        await supabase.from("site_settings").upsert(r as never, { onConflict: "key" });
       }
       setMsg("Seeded successfully.");
     } catch (e) {
