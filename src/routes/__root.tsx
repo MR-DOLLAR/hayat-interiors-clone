@@ -1,8 +1,9 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useLocation } from "@tanstack/react-router";
 import appCss from "../styles.css?url";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { brand } from "@/data/site";
+import { AuthProvider } from "@/hooks/useAuth";
 
 function NotFoundComponent() {
   return (
@@ -69,13 +70,15 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin") || location.pathname === "/login";
   return (
-    <>
-      <Header />
+    <AuthProvider>
+      {!isAdminRoute && <Header />}
       <main className="min-h-screen">
         <Outlet />
       </main>
-      <Footer />
-    </>
+      {!isAdminRoute && <Footer />}
+    </AuthProvider>
   );
 }
