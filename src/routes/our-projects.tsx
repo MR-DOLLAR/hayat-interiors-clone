@@ -68,7 +68,7 @@ function ProjectsPage() {
                 transition={{ duration: 0.7, delay: (i % 4) * 0.06 }}
                 className={i % 4 === 0 || i % 4 === 3 ? "md:mt-0" : "md:mt-16"}
               >
-                <Link to="/our-projects" className="block group">
+                <Link to="/our-projects/$slug" params={{ slug: p.slug }} className="block group">
                   <div className="aspect-[4/3] overflow-hidden bg-secondary relative">
                     <img
                       src={p.image}
