@@ -47,7 +47,7 @@ function AdminLayout() {
           {tabs.map((t) => {
             const active = t.exact ? location.pathname === t.to : location.pathname.startsWith(t.to);
             return (
-              <Link key={t.to} to={t.to}
+              <Link key={t.to} to={t.to as "/admin"}
                 className={`px-4 py-2.5 text-sm border-b-2 -mb-px transition-colors ${
                   active ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}>
