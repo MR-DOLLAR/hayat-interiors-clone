@@ -32,12 +32,15 @@ function LoginPage() {
   };
 
   return (
-    <section className="min-h-screen pt-32 pb-16 flex items-center justify-center">
-      <div className="w-full max-w-md mx-auto px-4">
-        <div className="bg-card border border-border rounded-2xl p-8 shadow-sm">
-          <h1 className="font-display text-3xl mb-2">Admin Access</h1>
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-secondary/40 via-background to-secondary/20 px-4 py-16">
+      <div className="w-full max-w-md mx-auto">
+        <div className="text-center mb-6">
+          <Link to="/" className="text-xs uppercase tracking-[0.25em] text-accent">{brand.name}</Link>
+        </div>
+        <div className="bg-card border border-border rounded-2xl p-8 shadow-xl">
+          <h1 className="font-display text-3xl mb-1">{mode === "signin" ? "Welcome back" : "Create admin account"}</h1>
           <p className="text-sm text-muted-foreground mb-6">
-            {mode === "signin" ? "Sign in to manage site content." : "Create the admin account (one-time)."}
+            {mode === "signin" ? "Sign in to manage your site content." : "One-time setup for your admin account."}
           </p>
           <form onSubmit={onSubmit} className="space-y-4">
             <div>
